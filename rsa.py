@@ -132,6 +132,14 @@ def euclideEtendu(a, b):
     d, x, y = p, r, q  - ((a // b )* r)
     return d, x, y
 
+def euclideEx(a, b):
+    x, y, u, v = 0, 1, 1, 0
+    while(a != 0):
+        q, r = b // a, b % a
+        m, n = x-u*q, y-v*q
+        b,a,x,y,u,v = a,r,u,v,m,n
+    gcd = b
+    return gcd, x, y
 
 def genererClefRSA():
     # Etape de generation des nombres premiers
@@ -152,7 +160,7 @@ def genererClefRSA():
         g = pgcd(e, phi)
     
     # Utilisation d'euclide etendu pour trouver l'inverse modulaire de e
-    d = euclideEtendu(e, phi)[1]
+    d = euclideEx(e, phi)[1]
 
     # Clef publique (e, n), Clef privé (d, n)
     return ((e, n), (d, n))
